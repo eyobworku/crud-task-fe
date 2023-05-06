@@ -20,10 +20,13 @@ export class ApiConfigService {
     return this.httpClient.get<TaskModel[]>(`${this.API_BASE_URL}/${url}`);
   }
 
-  post(url: string, data: Object){
-    return this.httpClient.post(`${this.API_BASE_URL}/${url}`,data);
+  postTaskList(url: string, data: Object){
+    return this.httpClient.post<TaskListModel>(`${this.API_BASE_URL}/${url}`,data);
   }
 
+  postTask(url: string, data: Object){
+    return this.httpClient.post<TaskModel>(`${this.API_BASE_URL}/${url}`,data);
+  }
   put(url: string, data: Object){
     return this.httpClient.put(`${this.API_BASE_URL}/${url}`,data);
   }
@@ -32,7 +35,11 @@ export class ApiConfigService {
     return this.httpClient.patch<TaskModel>(`${this.API_BASE_URL}/${url}`,data);
   }
 
-  delete(url: string){
-    return this.httpClient.delete(`${this.API_BASE_URL}/${url}`);
+  deleteTask(url: string){
+    return this.httpClient.delete<TaskModel>(`${this.API_BASE_URL}/${url}`);
+  }
+
+  deleteTaskList(url: string){
+    return this.httpClient.delete<TaskListModel>(`${this.API_BASE_URL}/${url}`);
   }
 }

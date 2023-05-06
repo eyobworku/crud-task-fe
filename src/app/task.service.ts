@@ -20,9 +20,9 @@ export class TaskService {
     return this.apiConfigService.getTasks(`tasklists/${taskListId}`);
   }
 
-  createTaskList(title: string){
+  createTaskList(title: string): Observable<TaskListModel>{
     let data = {'title':title};
-    this.apiConfigService.post('tasklists', data);
+    return this.apiConfigService.postTaskList('tasklists', data);
   }
 
   getAllTaskForATaskList(taskListId: string){
@@ -30,15 +30,15 @@ export class TaskService {
   }
 
   createTaskInsideATaskList(taskListId: string,title: string){
-    return this.apiConfigService.post(`tasklists/${taskListId}/tasks`,{title});
+    return this.apiConfigService.postTask(`tasklists/${taskListId}/tasks`,{title});
   }
 
-  deleteTaskList(taskListId:string){
-    return this.apiConfigService.delete(`tasklists/${taskListId}`);
+  deleteTaskList(taskListId:string): Observable<TaskListModel>{
+    return this.apiConfigService.deleteTaskList(`tasklists/${taskListId}`);
   }
 
-  deleteATaskInsideATaskList(taskListId:string,taskId:string){
-    return this.apiConfigService.delete(`tasklists/${taskListId}/tasks/${taskId}`);
+  deleteATaskInsideATaskList(taskListId:string,taskId:string): Observable<TaskModel>{
+    return this.apiConfigService.deleteTask(`tasklists/${taskListId}/tasks/${taskId}`);
   }
 
   updateTaskStatus(taskListId:string,taskObject:TaskModel): Observable<TaskModel>{

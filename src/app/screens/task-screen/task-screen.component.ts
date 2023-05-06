@@ -43,4 +43,29 @@ export class TaskScreenComponent implements OnInit {
     this.taskService.updateTaskStatus(this.taskListId,task)
     .subscribe(() => task.completed = !task.completed);
   }
+
+  deleteTask(task: TaskModel){
+    //console.log(task);
+    this.taskService.deleteATaskInsideATaskList(this.taskListId, task._id)
+    .subscribe((taskDeleted: TaskModel) => {
+      this.tasks = this.tasks.filter(t => t._id != taskDeleted._id);
+    }
+
+    );
+  }
+
+  deleteTaskList(taskListClicked: TaskListModel){
+    this.taskService.deleteTaskList(taskListClicked._id)
+  .subscribe(()=>{
+    this.taskLists = this.taskLists.filter(tL => tL._id != taskListClicked._id);
+  }
+  );
+  }
+  addNewTask(){
+    if(this.taskListId){
+      this.router.navigate(['./new-task'],{relativeTo: this.activatedRoute});
+    }else{
+      alert("Please select a task list");
+    }
+  }
 }
